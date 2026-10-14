@@ -1,0 +1,157 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My AI Chatbot</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #141e30, #5746e8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .chat {
+            width: 350px;
+            height: 480px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            text-align: center;
+            color: #5746e8;
+        }
+
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .msg {
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 10px;
+            overflow-wrap: anywhere;
+        }
+
+        .user {
+            background: #dcd8ff;
+            text-align: right;
+        }
+
+        .bot {
+            background: #eeeeee;
+        }
+
+        .controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 8px;
+        }
+
+        button {
+            background: #5746e8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat">
+        <h2>🤖 My Simple AI</h2>
+
+        <div id="messages">
+            <div class="msg bot">
+                Hello! 👋 Ask me a question.
+            </div>
+        </div>
+
+        <div class="controls">
+            <input id="input" placeholder="Type here...">
+            <button onclick="send()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function send() {
+            const input = document.getElementById("input");
+            const messages = document.getElementById("messages");
+            const text = input.value.trim();
+
+            if (!text) return;
+
+            addMessage("You: " + text, "user");
+
+            const reply = getReply(text.toLowerCase());
+            addMessage("AI: " + reply, "bot");
+
+            input.value = "";
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function addMessage(text, type) {
+            const messages = document.getElementById("messages");
+            const div = document.createElement("div");
+
+            div.className = "msg " + type;
+            div.textContent = text;
+            messages.appendChild(div);
+        }
+
+        function getReply(text) {
+            if (text.includes("hello") || text.includes("hi"))
+                return "Hello! 😊 How can I help you?";
+
+            if (text.includes("your name"))
+                return "My name is Simple AI.";
+
+            if (text.includes("how are you"))
+                return "I am fine! How are you?";
+
+            if (text.includes("time"))
+                return new Date().toLocaleTimeString();
+
+            if (text.includes("date"))
+                return new Date().toLocaleDateString();
+
+            if (text.includes("html"))
+                return "HTML is used to create web pages.";
+
+            if (text.includes("who made you"))
+                return "You made me using HTML, CSS and JavaScript!";
+
+            if (text.includes("bye"))
+                return "Goodbye! See you again! 👋";
+
+            return "I am a simple chatbot. Please ask me another question! 😊";
+        }
+
+        document.getElementById("input")
+            .addEventListener("keydown", function(event) {
+                if (event.key === "Enter") send();
+            });
+    </script>
+</body>
+</html>
+```
